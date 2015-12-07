@@ -2,12 +2,15 @@ package com.gameproject;
 
 import com.gameproject.Deck;
 import com.gameproject.Hand;
+import java.awt.Canvas;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
+
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Arc2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
@@ -18,14 +21,17 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.effect.Glow;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
@@ -58,7 +64,7 @@ public class BlackjackMain extends Application {
     private HBox dealerCards = new HBox(20);
     private HBox playerCards = new HBox(20);
 
-    private Parent createContent() {
+    private Parent createContent() throws IOException {
         dealer = new Hand(dealerCards.getChildren());
         player = new Hand(playerCards.getChildren());
 
@@ -75,6 +81,19 @@ public class BlackjackMain extends Application {
         leftBG.setArcWidth(50);
         leftBG.setArcHeight(50);
         leftBG.setFill(Color.GREEN);
+        
+        Canvas canvas = new Canvas();
+        BufferedImage imgi;
+        Graphics gc = canvas.getGraphics();
+        try {
+            imgi = ImageIO.read(Card.class.getResource("/res/images/table.png"));
+
+            gc.drawImage(imgi, 300, 300, null);
+            canvas.setVisible(true);
+        } catch (Exception e) {
+        }
+
+        
         Rectangle rightBG = new Rectangle(230, 560);
         rightBG.setArcWidth(50);
         rightBG.setArcHeight(50);
