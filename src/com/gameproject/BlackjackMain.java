@@ -2,11 +2,18 @@ package com.gameproject;
 
 import com.gameproject.Deck;
 import com.gameproject.Hand;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Arc2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -16,6 +23,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.effect.Glow;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -27,6 +36,10 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class BlackjackMain extends Application {
 
@@ -58,7 +71,7 @@ public class BlackjackMain extends Application {
 
         HBox rootLayout = new HBox(5);
         rootLayout.setPadding(new Insets(5, 5, 5, 5));
-        Rectangle leftBG = new Rectangle(550, 560);
+        Rectangle leftBG = new Rectangle(550, 560);        
         leftBG.setArcWidth(50);
         leftBG.setArcHeight(50);
         leftBG.setFill(Color.GREEN);
