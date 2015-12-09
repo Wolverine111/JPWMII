@@ -2,7 +2,7 @@ package com.gameproject;
 
 import com.gameproject.Deck;
 import com.gameproject.Hand;
-import java.awt.Canvas;
+
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
@@ -46,6 +46,8 @@ import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javafx.scene.canvas.Canvas;
+import static javafx.scene.paint.Color.*;
 
 public class BlackjackMain extends Application {
 
@@ -77,21 +79,30 @@ public class BlackjackMain extends Application {
 
         HBox rootLayout = new HBox(5);
         rootLayout.setPadding(new Insets(5, 5, 5, 5));
-        Rectangle leftBG = new Rectangle(550, 560);        
-        leftBG.setArcWidth(50);
-        leftBG.setArcHeight(50);
-        leftBG.setFill(Color.GREEN);
+//        Rectangle leftBG = new Rectangle(550, 560);        
+//        leftBG.setArcWidth(50);
+//        leftBG.setArcHeight(50);
+//        leftBG.setFill(Color.GREEN);
+//        
+        Canvas canvas = new Canvas(560, 560);
         
-        Canvas canvas = new Canvas();
         BufferedImage imgi;
-        Graphics gc = canvas.getGraphics();
-        try {
-            imgi = ImageIO.read(Card.class.getResource("/res/images/table.png"));
-
-            gc.drawImage(imgi, 300, 300, null);
-            canvas.setVisible(true);
-        } catch (Exception e) {
-        }
+        GraphicsContext gcfx = canvas.getGraphicsContext2D();
+        //Graphics gc = canvas.getGraphics();
+        Image zbyszek = new Image("/res/images/table.png", 560, 560, true, false);
+        
+        gcfx.setFill(DARKSLATEGRAY);
+        gcfx.fillRoundRect(0, 0, 550, 300, 10, 100);
+        gcfx.setFill(BLACK);
+        gcfx.drawImage(zbyszek, 0, 280);
+        
+//        try {
+//            imgi = ImageIO.read(Card.class.getResource("/res/images/table.png"));
+//
+//            gcfx.drawImage(imgi, 300, 300, null);
+//            canvas.setVisible(true);
+//        } catch (Exception e) {
+//        }
 
         
         Rectangle rightBG = new Rectangle(230, 560);
@@ -127,7 +138,7 @@ public class BlackjackMain extends Application {
         rightVBox.getChildren().addAll(btnPlay, buttonsHBox);
 
         // ADD BOTH STACKS TO ROOT LAYOUT
-        rootLayout.getChildren().addAll(new StackPane(leftBG, leftVBox), new StackPane(rightBG, rightVBox));
+        rootLayout.getChildren().addAll(new StackPane(canvas, leftVBox), new StackPane(rightBG, rightVBox));
         root.getChildren().addAll(background, rootLayout);
 
         // BIND PROPERTIES
